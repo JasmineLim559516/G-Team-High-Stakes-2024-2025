@@ -27,4 +27,6 @@ class Robot {
 
         //update function for whole robot
         void update(std::string info);
+
+        void auton();
 };

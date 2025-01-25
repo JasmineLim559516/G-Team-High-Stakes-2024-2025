@@ -1,6 +1,7 @@
 #include "main.h"
 #include "ports.hpp"
 #include "Robot.hpp"
+ #include "lemlib/api.hpp"  IWYU pragma: keep
 
 /**
  * A callback function for LLEMU's center button.
@@ -62,7 +63,10 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+	Robot robot (ports::LEFT_BACK_DT, ports::LEFT_FRONT_BOTTOM_DT, ports::LEFT_FRONT_TOP_DT, ports::RIGHT_BACK_DT, ports::RIGHT_FRONT_BOTTOM_DT, ports::RIGHT_FRONT_TOP_DT, ports::PNEUMATIC1, ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
+	
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task

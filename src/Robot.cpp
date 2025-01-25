@@ -63,3 +63,8 @@
             update_drivetrain();
             update_pneumatics();
         }
+
+
+        void Robot::auton(){
+            dt.move_voltage(100.0, 100.0);
+        }
