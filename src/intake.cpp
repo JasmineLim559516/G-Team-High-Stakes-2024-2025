@@ -2,20 +2,54 @@
 #include "api.h"
 #include "intake.hpp"
 
-    Intake::Intake(int motor1, int motor2) :
-    intakeMotor {motor1},
-    intakeMotor2 {motor2}
-    {}; 
+    Intake::Intake(int8_t motor1, int8_t motor2) :
+    intakeMotors {{motor1, motor2}}
+    {};
 
     
     //getters and setters
-    void set_voltage(int32_t voltage) //motor moves at this voltage
+    void Intake::toggle_intake()
     {
-
+        if (state)
+        {
+            intakeMotors.move_velocity(OFF);
+            state = false;
+        }
+        else
+        {
+            intakeMotors.move_velocity(current_velocity);
+            state = true;
+        }
     }
-    
-    int32_t get_avg_velocity();
+    bool Intake::get_state_intake()
+    {
+        return state;
+    }
 
-    void set_direction(bool direction); //true is positive, false is negative
-    bool get_direction();
-    void switch_direction();
+    void Intake::set_direction(bool direction) //true is positive, false is negative
+    {
+        current_direction = direction;
+    }
+    bool Intake::get_direction()
+    {
+        return current_direction;
+    }
+    void Intake::toggle_direction()
+    {
+        if (current_direction)
+        {
+            
+            current_direction = false;
+            current_velocity = NEGATIVE_DIRECTION;
+        }
+        else
+        {
+            current_direction = true;
+            current_velocity = POSITIVE_DIRECTION;
+        }
+    }
+
+    int Intake::get_velocity()
+    {
+        return current_velocity;
+    }
