@@ -31,12 +31,12 @@
             leftMotors.move(left);
             rightMotors.move(right);
 
-            pros::delay(2);
+            //pros::delay(2);
         }
 
         void Drivetrain::tank_control(int left_power, int right_power) {
             leftMotors.move(left_power);
             rightMotors.move(right_power);
 
-            pros::delay(2);
+            //pros::delay(2);
         }
