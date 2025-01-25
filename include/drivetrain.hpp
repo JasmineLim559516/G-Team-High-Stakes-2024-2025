@@ -7,7 +7,6 @@ class Drivetrain {
         pros::MotorGroup leftMotors;
         pros::MotorGroup rightMotors;
         
- 
     public:
         //getters and setters
 
