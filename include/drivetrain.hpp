@@ -2,7 +2,7 @@
 #include "api.h"
 
 class Drivetrain {
-    private:
+    private: 
         //initializes drivetrain motors
         pros::MotorGroup leftMotors;
         pros::MotorGroup rightMotors;

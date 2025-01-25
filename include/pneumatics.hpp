@@ -10,7 +10,7 @@ class Pneumatics {
 
     public:
         //pneumatics constructor
-        Pneumatics (int port);
+        Pneumatics (uint8_t port);
 
         //extends or deextends pneumatics depending on state
         void toggle_mogo();

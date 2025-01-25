@@ -2,7 +2,7 @@
 #include "api.h"
 #include "pneumatics.hpp"
 
-        Pneumatics::Pneumatics(int port) :
+        Pneumatics::Pneumatics(uint8_t port) :
             mogo {port}
         {};
 
@@ -12,10 +12,12 @@
             if (state)
             {
                 mogo.set_value(false);
+                state = false;
             }
             else
             {
                 mogo.set_value(true);
+                state = true;
             }
         }
 

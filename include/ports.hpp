@@ -11,7 +11,8 @@ namespace ports {
     constexpr int8_t RIGHT_FRONT_BOTTOM_DT = 20;
     constexpr int8_t RIGHT_FRONT_TOP_DT = 12;
 
-    constexpr int8_t INTAKE_MOTOR = 20; 
+    constexpr int8_t INTAKE_MOTOR_1 = 20;
+    constexpr int8_t INTAKE_MOTOR_2 = __;
     
     constexpr uint8_t PNEUMATIC1 = 'H'; 
 
