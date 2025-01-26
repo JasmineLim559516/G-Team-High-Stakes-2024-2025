@@ -6,8 +6,41 @@
     intakeMotors {{motor1, motor2}}
     {};
 
+    void Intake::move(int direction)
+    {
+        intakeMotors.move_velocity(direction);
+    }
     
+
+
+
+
+
+
+
     //getters and setters
+    // void Intake::move_at_direction(bool direction)
+    // {
+    //     if (direction)
+    //     {
+    //         intakeMotors.move_velocity(POSITIVE_DIRECTION);
+    //     }
+    //     else
+    //     {
+    //         intakeMotors.move_velocity(NEGATIVE_DIRECTION);
+    //     }
+    // }
+
+    // void Intake::stop()
+    // {
+    //     intakeMotors.move_velocity(0);
+    // }
+
+
+
+
+
+
     void Intake::toggle_intake()
     {
         if (state)
@@ -30,10 +63,12 @@
     {
         current_direction = direction;
     }
+
     bool Intake::get_direction()
     {
         return current_direction;
     }
+    
     void Intake::toggle_direction()
     {
         if (current_direction)

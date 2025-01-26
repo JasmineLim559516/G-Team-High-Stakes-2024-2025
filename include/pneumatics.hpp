@@ -16,5 +16,7 @@ class Pneumatics {
         void toggle_mogo();
 
         //returns if pneumatic extended or not
-        bool get_state_mogo();   
+        bool get_state_mogo();  
+
+        void set_mogo(bool a_state); 
 };

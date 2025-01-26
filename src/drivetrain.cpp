@@ -19,10 +19,10 @@
         //int32_t get_turning_velocity(); //gets left/right velocity
         //int32_t get_avg_velocity(); //gets total velocity
 
-        void Drivetrain::move_voltage(double left_voltage, double right_voltage)
+        void Drivetrain::move_velocity(int left_velocity, int right_velocity)
         {
-            leftMotors.move_voltage(left_voltage);
-            rightMotors.move_voltage(right_voltage);
+            leftMotors.move_velocity(left_velocity);
+            rightMotors.move_velocity(right_velocity);
         }
 
         void Drivetrain::arcade_control(int power, int turn) {
@@ -36,7 +36,10 @@
 
         void Drivetrain::tank_control(int left_power, int right_power) {
             leftMotors.move(left_power);
+            // leftMotors.move_voltage(left_power * 100);
             rightMotors.move(right_power);
+            // rightMotors.move_voltage(right_power * 100);
 
-            //pros::delay(2);
+
+            // pros::delay(2);
         }

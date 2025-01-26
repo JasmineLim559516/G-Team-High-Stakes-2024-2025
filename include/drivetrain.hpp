@@ -18,7 +18,7 @@ class Drivetrain {
         Drivetrain(int8_t left1, int8_t left2, int8_t left3, int8_t right1, int8_t right2, int8_t right3);
 
 
-        void move_voltage(double left_voltage, double right_voltage);
+        void move_velocity(int left_velocity, int right_velocity);
 
         void arcade_control(int power, int turn);
 

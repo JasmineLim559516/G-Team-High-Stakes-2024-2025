@@ -16,29 +16,14 @@
 
         //update robot components
         void Robot::update_intake(){
-            if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
-            {
-                intake.toggle_intake();
+            int voltageToBeSet = 0;
+            if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)) {
+                voltageToBeSet = 600;
             }
-            if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
-            {
-                intake.toggle_direction();
+            else if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+                voltageToBeSet = -600;
             }
-
-
-            // //intakes rings
-            // if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && intake.get_avg_velocity() == 0) {
-            //     intake.set_direction(true); //spins intake in positive direction
-            //     intake.set_voltage(12000); //spins at max voltage
-            // }
-            // if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1) && intake.get_avg_velocity() != 0) {
-            //     intake.set_voltage(0); //turns off intake
-            // }
-            // //deintakes rings
-            // if (m_controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-            //     intake.set_direction(false); //spins intake in opposite direction
-            //     intake.set_voltage(12000);
-            // }
+            intake.move(voltageToBeSet);
         }
 
         void Robot::update_drivetrain() {
@@ -59,12 +44,14 @@
     
         //update function for whole robot
         void Robot::update(std::string info){
-            update_intake();
             update_drivetrain();
+            update_intake();
             update_pneumatics();
         }
 
 
         void Robot::auton(){
-            dt.move_voltage(100.0, 100.0);
+            dt.move_velocity(100, 100);
+            pros::delay(2);
+            dt.move_velocity(0, 0);
         }

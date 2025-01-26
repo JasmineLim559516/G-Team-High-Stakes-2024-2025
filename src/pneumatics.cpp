@@ -21,6 +21,14 @@
             }
         }
 
+        void Pneumatics::set_mogo(bool a_state) //a_state false = off and vice versa
+        {
+            mogo.set_value(a_state);
+            state = a_state;
+        }
+
+
+
         bool Pneumatics::get_state_mogo()
         {
             return state;
