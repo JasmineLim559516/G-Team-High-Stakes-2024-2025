@@ -3,6 +3,67 @@
 #include "Robot.hpp"
  #include "lemlib/api.hpp"  IWYU pragma: keep
 
+// pros::Motor left_front_motor(ports::LEFT_FRONT_TOP_DT, pros::MotorGearset::blue);
+// pros::Motor left_middle_motor(ports::LEFT_FRONT_BOTTOM_DT, pros::MotorGearset::blue);
+// pros::Motor left_back_motor(ports::LEFT_BACK_DT, pros::MotorGearset::blue);
+// pros::Motor right_front_motor(ports::RIGHT_FRONT_TOP_DT, pros::MotorGearset::blue);
+// pros::Motor right_middle_motor(ports::LEFT_FRONT_BOTTOM_DT, pros::MotorGearset::blue);
+// pros::Motor right_back_motor(ports::LEFT_BACK_DT, pros::MotorGearset::blue);
+
+// pros::MotorGroup left_side_motors({left_front_motor,left_middle_motor, left_back_motor});
+// pros::MotorGroup right_side_motors({right_front_motor, right_middle_motor, right_back_motor});
+
+pros::MotorGroup left_side_motors({ports::LEFT_FRONT_TOP_DT, ports::LEFT_FRONT_BOTTOM_DT, ports::LEFT_BACK_DT}, pros::MotorGearset::blue);
+pros::MotorGroup right_side_motors({ports::RIGHT_FRONT_TOP_DT, ports::RIGHT_FRONT_BOTTOM_DT, ports::RIGHT_BACK_DT}, pros::MotorGearset::blue);
+
+lemlib::Drivetrain drivetrain(
+&left_side_motors, //left motor group
+&right_side_motors, //right motor group
+14.9, //track width
+3.25, //wheel diameter
+450, //drivetrain rpm
+2 //horizontal drift
+);
+
+pros::Imu intertial_sensor(1); //add port
+
+lemlib::OdomSensors sensors(
+	nullptr,
+	nullptr,
+	nullptr,
+	nullptr,
+	&intertial_sensor
+);
+
+// forward/backward PID
+lemlib::ControllerSettings lateralController(
+	10, // proportional gain (kP)
+    0, // integral gain (kI)
+	3, // derivative gain (kD)
+    0, // anti windup
+    0, // small error range, in inches
+    0, // small error range timeout, in milliseconds
+    0, // large error range, in inches
+    0, // large error range timeout, in milliseconds
+    0 // maximum acceleration (slew)
+);
+
+// turning PID
+lemlib::ControllerSettings angularController(
+	2, // proportional gain (kP)
+    0, // integral gain (kI)
+    12, // derivative gain (kD)
+    0, // anti windup
+    0, // small error range, in inches
+    0, // small error range timeout, in milliseconds
+    0, // large error range, in inches
+    0, // large error range timeout, in milliseconds
+    0 // maximum acceleration (slew)
+);
+
+lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
+
+
 /**
  * A callback function for LLEMU's center button.
  *
@@ -26,12 +87,26 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
+	// pros::lcd::initialize();
+	// pros::lcd::set_text(1, "Hello PROS User!");
 
-	pros::lcd::register_btn1_cb(on_center_button);
-	std::printf("hellox5544");
+	// pros::lcd::register_btn1_cb(on_center_button);
+	// std::printf("hellox5544");
 
+
+    pros::lcd::initialize(); // initialize brain screen
+    chassis.calibrate(); // calibrate sensors
+    // print position to brain screen
+    pros::Task screen_task([&]() {
+        while (true) {
+            // print robot location to the brain screen
+            pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+            pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+            pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+            // delay to save resources
+            pros::delay(20);
+        }
+    });
 }
 
 /**
@@ -64,8 +139,30 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	// Robot robot (ports::LEFT_BACK_DT, ports::LEFT_FRONT_BOTTOM_DT, ports::LEFT_FRONT_TOP_DT, ports::RIGHT_BACK_DT, ports::RIGHT_FRONT_BOTTOM_DT, ports::RIGHT_FRONT_TOP_DT, ports::PNEUMATIC1, ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
+	// Pneumatics pneu (ports::PNEUMATIC1);
+	// Intake intake (ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
 
+	chassis.setPose(0, 0, 0);
+
+	//chassis.turnToHeading(90, 100000);  // for angular PID tuning
+	chassis.moveToPoint(0, 10, 100000);   // for lateral PID tuning.
+
+	//offensive
+	// chassis.moveToPoint(0, -10, 100000); //change
+	// pneu.set_mogo(true);
+	// intake.move(600);
+	// pros::delay(2); //change time
+	// intake.stop();
+	// chassis.moveToPose(10, 10, 45, 100000); //change
+	// intake.move(600);
+	// pros::delay(2); //change time
+	// intake.stop();
+
+	//defensive
+	// chassis.moveToPoint(0, -10, 100000); //change
+	// chassis.moveToPose(-10, -10, 45, 100000); //change
+	// pneu.set_mogo(true);
+	// chassis.moveToPose(10, 10, 45, 100000); //change
 }
 
 /**

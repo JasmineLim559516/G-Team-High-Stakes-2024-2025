@@ -22,7 +22,7 @@ class Intake {
 
 
         // void move_at_direction(bool direction);
-        // void stop();
+        void stop();
 
 
         //getters and setters

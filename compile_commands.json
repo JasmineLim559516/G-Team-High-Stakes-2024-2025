@@ -60,8 +60,6 @@
             "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
             "-D_POSIX_TIMERS",
             "-D_POSIX_MONOTONIC_CLOCK",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_H",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_HPP",
             "-Wno-psabi",
             "-ffunction-sections",
             "-fdata-sections",
@@ -98,8 +96,6 @@
             "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
             "-D_POSIX_TIMERS",
             "-D_POSIX_MONOTONIC_CLOCK",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_H",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_HPP",
             "-Wno-psabi",
             "-ffunction-sections",
             "-fdata-sections",
@@ -136,8 +132,6 @@
             "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
             "-D_POSIX_TIMERS",
             "-D_POSIX_MONOTONIC_CLOCK",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_H",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_HPP",
             "-Wno-psabi",
             "-ffunction-sections",
             "-fdata-sections",
@@ -145,11 +139,11 @@
             "-funwind-tables",
             "--std=gnu++20",
             "-o",
-            "bin/main.cpp.o",
-            "src/main.cpp"
+            "bin/Robot.cpp.o",
+            "src/Robot.cpp"
         ],
         "directory": "/Users/jasminelim/Computer Science/Robotics/G-Team-High-Stakes-2024-2025",
-        "file": "src/main.cpp"
+        "file": "src/Robot.cpp"
     },
     {
         "arguments": [
@@ -174,8 +168,6 @@
             "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
             "-D_POSIX_TIMERS",
             "-D_POSIX_MONOTONIC_CLOCK",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_H",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_HPP",
             "-Wno-psabi",
             "-ffunction-sections",
             "-fdata-sections",
@@ -212,8 +204,6 @@
             "-D_UNIX98_THREAD_MUTEX_ATTRIBUTES",
             "-D_POSIX_TIMERS",
             "-D_POSIX_MONOTONIC_CLOCK",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_H",
-            "-D_PROS_INCLUDE_LIBLVGL_LLEMU_HPP",
             "-Wno-psabi",
             "-ffunction-sections",
             "-fdata-sections",
@@ -221,10 +211,10 @@
             "-funwind-tables",
             "--std=gnu++20",
             "-o",
-            "bin/Robot.cpp.o",
-            "src/Robot.cpp"
+            "bin/main.cpp.o",
+            "src/main.cpp"
         ],
         "directory": "/Users/jasminelim/Computer Science/Robotics/G-Team-High-Stakes-2024-2025",
-        "file": "src/Robot.cpp"
+        "file": "src/main.cpp"
     }
 ]

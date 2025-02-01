@@ -31,10 +31,10 @@
     //     }
     // }
 
-    // void Intake::stop()
-    // {
-    //     intakeMotors.move_velocity(0);
-    // }
+    void Intake::stop()
+    {
+        intakeMotors.move_velocity(0);
+    }
 
 
 
