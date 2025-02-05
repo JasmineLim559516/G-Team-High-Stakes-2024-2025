@@ -1,7 +1,7 @@
 #include "main.h"
 #include "ports.hpp"
 #include "Robot.hpp"
- #include "lemlib/api.hpp"  IWYU pragma: keep
+ #include "lemlib/api.hpp"  //IWYU pragma: keep
 
 // pros::Motor left_front_motor(ports::LEFT_FRONT_TOP_DT, pros::MotorGearset::blue);
 // pros::Motor left_middle_motor(ports::LEFT_FRONT_BOTTOM_DT, pros::MotorGearset::blue);
@@ -17,15 +17,15 @@ pros::MotorGroup left_side_motors({ports::LEFT_FRONT_TOP_DT, ports::LEFT_FRONT_B
 pros::MotorGroup right_side_motors({ports::RIGHT_FRONT_TOP_DT, ports::RIGHT_FRONT_BOTTOM_DT, ports::RIGHT_BACK_DT}, pros::MotorGearset::blue);
 
 lemlib::Drivetrain drivetrain(
-&left_side_motors, //left motor group
-&right_side_motors, //right motor group
-14.9, //track width
-3.25, //wheel diameter
-450, //drivetrain rpm
-2 //horizontal drift
+	&left_side_motors, //left motor group
+	&right_side_motors, //right motor group
+	14.9, //track width
+	3.25, //wheel diameter
+	450, //drivetrain rpm
+	2 //horizontal drift
 );
 
-pros::Imu intertial_sensor(1); //add port
+pros::Imu intertial_sensor(17); //add port
 
 lemlib::OdomSensors sensors(
 	nullptr,
@@ -39,18 +39,18 @@ lemlib::OdomSensors sensors(
 lemlib::ControllerSettings lateralController(
 	10, // proportional gain (kP)
     0, // integral gain (kI)
-	3, // derivative gain (kD)
-    0, // anti windup
-    0, // small error range, in inches
-    0, // small error range timeout, in milliseconds
-    0, // large error range, in inches
-    0, // large error range timeout, in milliseconds
-    0 // maximum acceleration (slew)
+    3, // derivative gain (kD)
+    3, // anti windup
+    1, // small error range, in inches
+    100, // small error range timeout, in milliseconds
+    3, // large error range, in inches
+    500, // large error range timeout, in milliseconds
+    20 // maximum acceleration (slew)
 );
 
 // turning PID
 lemlib::ControllerSettings angularController(
-	2, // proportional gain (kP)
+	2.75, // proportional gain (kP)
     0, // integral gain (kI)
     12, // derivative gain (kD)
     0, // anti windup
@@ -144,8 +144,9 @@ void autonomous() {
 
 	chassis.setPose(0, 0, 0);
 
-	//chassis.turnToHeading(90, 100000);  // for angular PID tuning
-	chassis.moveToPoint(0, 10, 100000);   // for lateral PID tuning.
+	chassis.turnToHeading(90, 100000);  // for angular PID tuning
+	chassis.turnToHeading(180, 100000);
+	//chassis.moveToPoint(0, 10, 100000);   // for lateral PID tuning.
 
 	//offensive
 	// chassis.moveToPoint(0, -10, 100000); //change
