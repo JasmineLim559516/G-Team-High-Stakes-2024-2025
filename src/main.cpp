@@ -37,15 +37,15 @@ lemlib::OdomSensors sensors(
 
 // forward/backward PID
 lemlib::ControllerSettings lateralController(
-	10, // proportional gain (kP)
+	60, // proportional gain (kP)
     0, // integral gain (kI)
-    3, // derivative gain (kD)
+    5, // derivative gain (kD)
     3, // anti windup
     1, // small error range, in inches
     100, // small error range timeout, in milliseconds
     3, // large error range, in inches
     500, // large error range timeout, in milliseconds
-    20 // maximum acceleration (slew)
+    10 // maximum acceleration (slew)
 );
 
 // turning PID
@@ -139,14 +139,17 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-	// Pneumatics pneu (ports::PNEUMATIC1);
+	Pneumatics pneu (ports::PNEUMATIC1);
 	// Intake intake (ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
 
 	chassis.setPose(0, 0, 0);
 
-	chassis.turnToHeading(90, 100000);  // for angular PID tuning
-	chassis.turnToHeading(180, 100000);
-	//chassis.moveToPoint(0, 10, 100000);   // for lateral PID tuning.
+	// // chassis.turnToHeading(90, 1000);  // for angular PID tuning
+	// // chassis.setPose(0, 0, 0);
+	// // chassis.turnToHeading(-90, 100000);
+	// chassis.moveToPoint(0, 24, 1000);   // for lateral PID tuning.
+
+	pneu.set_mogo(true);
 
 	//offensive
 	// chassis.moveToPoint(0, -10, 100000); //change
@@ -157,7 +160,10 @@ void autonomous() {
 	// chassis.moveToPose(10, 10, 45, 100000); //change
 	// intake.move(600);
 	// pros::delay(2); //change time
+	// intake.move(-600);
+	// pros::delay(2); //change time
 	// intake.stop();
+
 
 	//defensive
 	// chassis.moveToPoint(0, -10, 100000); //change

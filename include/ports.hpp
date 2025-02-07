@@ -4,7 +4,7 @@ namespace ports {
 
     constexpr int8_t LEFT_BACK_DT = -18;
     constexpr int8_t LEFT_FRONT_BOTTOM_DT = -19;
-    constexpr int8_t LEFT_FRONT_TOP_DT = -20;
+    constexpr int8_t LEFT_FRONT_TOP_DT = -8;
 
 
     constexpr int8_t RIGHT_BACK_DT = 14;
