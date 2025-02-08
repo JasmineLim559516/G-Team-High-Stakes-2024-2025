@@ -165,6 +165,13 @@ void autonomous() {
 
 	//defensive
 	chassis.moveToPoint(0, -48, 10000, {.forwards = false});
+	chassis.turnToHeading(90, 1000); //change
+	chassis.moveToPoint(0, -24, 10000, {.forwards = false}); //change
+	chassis.turnToHeading(0, 1000); //change
+	chassis.moveToPoint(0, -10, 1000, {.forwards = false}); //change
+	pneu.set_mogo(true);
+	chassis.moveToPoint(0, 10, 1000); //change
+
 	//chassis.moveToPose(-10, -10, 90, 10000, {.forwards = false}); //change
 	//pneu.set_mogo(true);
 	//chassis.moveToPose(10, 10, 45, 100000); //change
