@@ -31,7 +31,8 @@
             int left_power = m_controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
             int right_power = m_controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
 
-            dt.tank_control(left_power, right_power);
+            //dt.tank_control(left_power, right_power);
+            dt.arcade_control(left_power, turn);
         }
 
         void Robot::update_pneumatics() {
