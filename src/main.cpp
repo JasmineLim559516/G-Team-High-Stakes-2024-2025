@@ -165,13 +165,13 @@ void autonomous() {
 
 	//defensive
 	chassis.moveToPoint(0, -48, 10000, {.forwards = false}); // moves forward
-	chassis.moveToPose(-10, -10, 90, 10000, {.forwards = false}); //change. // positions bot between mogo and ring
-	chassis.turnToHeading(0, 1000); //change. // turns bot's mogo to face mogo
+	chassis.moveToPose(-10, -10, 0, 10000, {.forwards = false}); //change. // positions bot between mogo and ring while facing mogo (idk if thats how method works)
 	chassis.moveToPoint(0, -10, 1000, {.forwards = false}); //change. //moves forward
 	pneu.set_mogo(true);  //grab mogo
 	chassis.moveToPoint(0, 10, 1000); //change. //moves away from line
 
 
+	// chassis.turnToHeading(0, 1000); //change. makes bot's mogo face mogo
 	// chassis.turnToHeading(90, 1000); //change
 	// chassis.moveToPoint(0, -24, 10000, {.forwards = false}); //change
 
