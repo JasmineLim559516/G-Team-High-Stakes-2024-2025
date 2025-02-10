@@ -21,7 +21,5 @@ class Drivetrain {
         void move_velocity(int left_velocity, int right_velocity);
 
         void arcade_control(int power, int turn);
-
         void tank_control(int left_power, int right_power);
-        
 };

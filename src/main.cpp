@@ -1,7 +1,7 @@
 #include "main.h"
 #include "ports.hpp"
 #include "Robot.hpp"
- #include "lemlib/api.hpp"  //IWYU pragma: keep
+#include "lemlib/api.hpp"  //IWYU pragma: keep
 
 // pros::Motor left_front_motor(ports::LEFT_FRONT_TOP_DT, pros::MotorGearset::blue);
 // pros::Motor left_middle_motor(ports::LEFT_FRONT_BOTTOM_DT, pros::MotorGearset::blue);
@@ -61,7 +61,18 @@ lemlib::ControllerSettings angularController(
     0 // maximum acceleration (slew)
 );
 
-lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
+lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
+	10, // minimum output where drivetrain will move out of 127
+	1.019 // expo curve gain
+);
+
+// input curve for steer input during driver control
+lemlib::ExpoDriveCurve steer_curve(3, // joystick deadband out of 127
+ 10, // minimum output where drivetrain will move out of 127
+ 1.019 // expo curve gain
+);
+
+lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors, &throttle_curve, &steer_curve);
 
 
 /**
@@ -140,7 +151,7 @@ void competition_initialize() {}
  */
 void autonomous() {
 	Pneumatics pneu (ports::PNEUMATIC1);
-	// Intake intake (ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
+	Intake intake (ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
 
 	chassis.setPose(0, 0, 0);
 
@@ -164,11 +175,27 @@ void autonomous() {
 
 
 	//defensive
-	chassis.moveToPoint(0, -48, 10000, {.forwards = false}); // moves forward
-	chassis.moveToPose(-10, -10, 0, 10000, {.forwards = false}); //change. // positions bot between mogo and ring while facing mogo (idk if thats how method works)
-	chassis.moveToPoint(0, -10, 1000, {.forwards = false}); //change. //moves forward
-	pneu.set_mogo(true);  //grab mogo
-	chassis.moveToPoint(0, 10, 1000); //change. //moves away from line
+	pneu.set_mogo(false);
+	chassis.moveToPoint(0, 27, 900, {.maxSpeed = 70}); // moves forward
+	chassis.moveToPoint(0, 30, 100, {.maxSpeed = 50});
+	pros::Task::delay(1000);
+	pneu.set_mogo(true);
+	pros::Task::delay(1000);
+	intake.move(600);
+	pros::Task::delay(3000);
+	intake.stop();
+	pros::Task::delay(500);
+	chassis.turnToHeading(180, 1000, {.maxSpeed = 50});
+	chassis.moveToPoint(0, 49, 1000, {.forwards = false, .maxSpeed = 70});
+
+
+
+
+
+	// chassis.moveToPose(-10, -10, 0, 10000, {.forwards = false}); //change. // positions bot between mogo and ring while facing mogo (idk if thats how method works)
+	// chassis.moveToPoint(0, -10, 1000, {.forwards = false}); //change. //moves forward
+	// pneu.set_mogo(true);  //grab mogo
+	// chassis.moveToPoint(0, 10, 1000); //change. //moves away from line
 
 
 	// chassis.turnToHeading(0, 1000); //change. makes bot's mogo face mogo
