@@ -30,19 +30,19 @@
 
             //toggle
             if (m_controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1)) {
-                if (intake.get_velocity() == 600) {
+                if (intake.get_velocity() == 150) {
                     intake.set_velocity(0);
                 }
                 else {
-                    intake.set_velocity(600);
+                    intake.set_velocity(150);
                 }
             }
             if (m_controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R2)) {
-                if (intake.get_velocity() == -600) {
+                if (intake.get_velocity() == -50) {
                     intake.set_velocity(0);
                 }
                 else {
-                    intake.set_velocity(-600);
+                    intake.set_velocity(-50);
                 }
             }
             intake.move(intake.get_velocity());
@@ -61,7 +61,7 @@
                 2 //horizontal drift
             );
 
-            pros::Imu intertial_sensor(17); //add port
+            pros::Imu intertial_sensor(11); //add port
 
             lemlib::OdomSensors sensors(
 	            nullptr,
@@ -73,9 +73,9 @@
 
             // forward/backward PID
             lemlib::ControllerSettings lateralController(
-	            60, // proportional gain (kP)
+	            7, // proportional gain (kP)
                 0, // integral gain (kI)
-                5, // derivative gain (kD)
+                3, // derivative gain (kD)
                 3, // anti windup
                 1, // small error range, in inches
                 100, // small error range timeout, in milliseconds
@@ -86,7 +86,7 @@
 
             // turning PID
             lemlib::ControllerSettings angularController(
-	            2.75, // proportional gain (kP)
+	            2.15, // proportional gain (kP)
                 0, // integral gain (kI)
     12, // derivative gain (kD)
     0, // anti windup
@@ -118,8 +118,8 @@ lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
             //dt.tank_control(left_power, right_power);  //beginner
             //dt.arcade_control(left_power, turn);  //arcade
 
-            chassis.arcade(left_power, turn);  //zoya
-            //chassis.tank(left_power, right_power); //lemlib_Tank
+            //chassis.arcade(left_power, turn);  //zoya/dristi
+            chassis.tank(left_power, right_power); //sarah
         }
 
         void Robot::update_pneumatics() {

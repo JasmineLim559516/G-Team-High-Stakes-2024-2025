@@ -25,7 +25,7 @@ lemlib::Drivetrain drivetrain(
 	2 //horizontal drift
 );
 
-pros::Imu intertial_sensor(17); //add port
+pros::Imu intertial_sensor(11); //add port
 
 lemlib::OdomSensors sensors(
 	nullptr,
@@ -37,9 +37,9 @@ lemlib::OdomSensors sensors(
 
 // forward/backward PID
 lemlib::ControllerSettings lateralController(
-	60, // proportional gain (kP)
+	7, // proportional gain (kP)
     0, // integral gain (kI)
-    5, // derivative gain (kD)
+    3, // derivative gain (kD)
     3, // anti windup
     1, // small error range, in inches
     100, // small error range timeout, in milliseconds
@@ -50,7 +50,7 @@ lemlib::ControllerSettings lateralController(
 
 // turning PID
 lemlib::ControllerSettings angularController(
-	2.75, // proportional gain (kP)
+	2.15, // proportional gain (kP)
     0, // integral gain (kI)
     12, // derivative gain (kD)
     0, // anti windup
@@ -155,10 +155,9 @@ void autonomous() {
 
 	chassis.setPose(0, 0, 0);
 
-	// // chassis.turnToHeading(90, 1000);  // for angular PID tuning
-	// // chassis.setPose(0, 0, 0);
-	// // chassis.turnToHeading(-90, 100000);
-	//chassis.moveToPoint(0, 24, 1000);   // for lateral PID tuning.
+	//chassis.turnToHeading(90, 1000);  // for angular PID tuning
+	//chassis.turnToHeading(-90, 100000);
+	chassis.moveToPoint(0, 24, 10000000);   // for lateral PID tuning.
 
 	//offensive
 	// chassis.moveToPoint(0, -10, 100000); //change
@@ -174,10 +173,11 @@ void autonomous() {
 	// intake.stop();
 
 
-	//defensive
+	//old auton at angle
+	/*
 	pneu.set_mogo(false);
 	chassis.moveToPoint(0, 27, 900, {.maxSpeed = 70}); // moves forward
-	chassis.moveToPoint(0, 30, 100, {.maxSpeed = 50});
+	chassis.moveToPoint(0, 30, 100, {.maxSpeed = 50});  //moves forward at slower speed
 	pros::Task::delay(1000);
 	pneu.set_mogo(true);
 	pros::Task::delay(1000);
@@ -187,9 +187,25 @@ void autonomous() {
 	pros::Task::delay(500);
 	chassis.turnToHeading(180, 1000, {.maxSpeed = 50});
 	chassis.moveToPoint(0, 49, 1000, {.forwards = false, .maxSpeed = 70});
+	*/
 
 
 
+	//new auton
+	/*
+	pneu.set_mogo(false);
+	chassis.moveToPoint(0, 17, 10000, {.maxSpeed = 70}); // moves forward
+	chassis.moveToPoint(0, 25, 10000, {.maxSpeed = 50}); //moves forward at slower speed. //change to pick up mogo
+	pros::Task::delay(1000);
+	pneu.set_mogo(true);
+	pros::Task::delay(1000);
+	intake.move(150);
+	pros::Task::delay(3000);
+	intake.stop();
+	pros::Task::delay(500);
+	chassis.turnToHeading(-90, 1000, {.maxSpeed = 50}); //turns bot so back faces middle
+	chassis.moveToPoint(13, 24, 1000, {.forwards = false, .maxSpeed = 70});   //hits the middle.  //change to hit middle
+	*/
 
 
 	// chassis.moveToPose(-10, -10, 0, 10000, {.forwards = false}); //change. // positions bot between mogo and ring while facing mogo (idk if thats how method works)
