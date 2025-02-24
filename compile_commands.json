@@ -139,11 +139,11 @@
             "-funwind-tables",
             "--std=gnu++20",
             "-o",
-            "bin/Robot.cpp.o",
-            "src/Robot.cpp"
+            "bin/intake.cpp.o",
+            "src/intake.cpp"
         ],
         "directory": "/Users/jasminelim/Computer Science/Robotics/G-Team-High-Stakes-2024-2025",
-        "file": "src/Robot.cpp"
+        "file": "src/intake.cpp"
     },
     {
         "arguments": [
@@ -175,11 +175,11 @@
             "-funwind-tables",
             "--std=gnu++20",
             "-o",
-            "bin/intake.cpp.o",
-            "src/intake.cpp"
+            "bin/Robot.cpp.o",
+            "src/Robot.cpp"
         ],
         "directory": "/Users/jasminelim/Computer Science/Robotics/G-Team-High-Stakes-2024-2025",
-        "file": "src/intake.cpp"
+        "file": "src/Robot.cpp"
     },
     {
         "arguments": [
@@ -247,10 +247,10 @@
             "-funwind-tables",
             "--std=gnu++20",
             "-o",
-            "bin/lemlib.cpp.o",
-            "src/lemlib.cpp"
+            "bin/flagMech.cpp.o",
+            "src/flagMech.cpp"
         ],
         "directory": "/Users/jasminelim/Computer Science/Robotics/G-Team-High-Stakes-2024-2025",
-        "file": "src/lemlib.cpp"
+        "file": "src/flagMech.cpp"
     }
 ]

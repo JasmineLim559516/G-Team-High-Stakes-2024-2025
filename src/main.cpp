@@ -152,12 +152,13 @@ void competition_initialize() {}
 void autonomous() {
 	Pneumatics pneu (ports::PNEUMATIC1);
 	Intake intake (ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
+	FlagMech flag (ports::FLAG1);
 
 	chassis.setPose(0, 0, 0);
 
 	//chassis.turnToHeading(90, 1000);  // for angular PID tuning
 	//chassis.turnToHeading(-90, 100000);
-	chassis.moveToPoint(0, 24, 10000000);   // for lateral PID tuning.
+	//chassis.moveToPoint(0, 24, 10000000);   // for lateral PID tuning.
 
 	//offensive
 	// chassis.moveToPoint(0, -10, 100000); //change
@@ -173,7 +174,7 @@ void autonomous() {
 	// intake.stop();
 
 
-	//old auton at angle
+	//old auton at angle w mogo at front(zoya/dristi)
 	/*
 	pneu.set_mogo(false);
 	chassis.moveToPoint(0, 27, 900, {.maxSpeed = 70}); // moves forward
@@ -188,14 +189,30 @@ void autonomous() {
 	chassis.turnToHeading(180, 1000, {.maxSpeed = 50});
 	chassis.moveToPoint(0, 49, 1000, {.forwards = false, .maxSpeed = 70});
 	*/
+	
+	
+	//old auton at angle w intake at front(sarah)
+	pneu.set_mogo(false);
+	chassis.moveToPoint(0, 27, 900, {.forwards = false, .maxSpeed = 70}); // moves forward
+	chassis.moveToPoint(0, 30, 100, {.forwards = false, .maxSpeed = 50});  //moves forward at slower speed
+	pros::Task::delay(1000);
+	pneu.set_mogo(true);
+	pros::Task::delay(1000);
+	intake.move(600);
+	pros::Task::delay(3000);
+	intake.stop();
+	pros::Task::delay(500);
+	chassis.turnToHeading(180, 1000, {.maxSpeed = 50});
+	chassis.moveToPoint(0, 49, 1000, {.maxSpeed = 70});
+	
 
 
 
-	//new auton
+	//new auton w mogo at front(zoya/dristi). dk if work
 	/*
 	pneu.set_mogo(false);
-	chassis.moveToPoint(0, 17, 10000, {.maxSpeed = 70}); // moves forward
-	chassis.moveToPoint(0, 25, 10000, {.maxSpeed = 50}); //moves forward at slower speed. //change to pick up mogo
+	chassis.moveToPoint(0, 20, 10000, {.maxSpeed = 70}); // moves forward
+	chassis.moveToPoint(0, 28, 10000, {.maxSpeed = 50}); //moves forward at slower speed. //change to pick up mogo
 	pros::Task::delay(1000);
 	pneu.set_mogo(true);
 	pros::Task::delay(1000);
@@ -204,8 +221,32 @@ void autonomous() {
 	intake.stop();
 	pros::Task::delay(500);
 	chassis.turnToHeading(-90, 1000, {.maxSpeed = 50}); //turns bot so back faces middle
-	chassis.moveToPoint(13, 24, 1000, {.forwards = false, .maxSpeed = 70});   //hits the middle.  //change to hit middle
+	chassis.moveToPoint(13, 28, 1000, {.forwards = false, .maxSpeed = 70});   //hits the middle.  //change to hit middle
 	*/
+	
+
+
+	//new auton w intake at front(sarah). dk if work
+	/*
+	pneu.set_mogo(false);
+	chassis.moveToPoint(0, 17, 10000, {.forwards = false, .maxSpeed = 70}); // moves forward
+	chassis.moveToPoint(0, 25, 10000, {.forwards = false, .maxSpeed = 50}); //moves forward at slower speed. //change to pick up mogo
+	pros::Task::delay(1000);
+	pneu.set_mogo(true);
+	pros::Task::delay(1000);
+	intake.move(150);
+	pros::Task::delay(3000);
+	intake.stop();
+	pros::Task::delay(500);
+	chassis.turnToHeading(-90, 1000, {.maxSpeed = 50}); //turns bot so back faces middle
+	chassis.moveToPoint(13, 24, 1000, {.maxSpeed = 70});   //hits the middle.  //change to hit middle
+	*/
+	
+
+
+	//auton for that one team
+	//chassis.moveToPoint(0, 4, 10000);
+
 
 
 	// chassis.moveToPose(-10, -10, 0, 10000, {.forwards = false}); //change. // positions bot between mogo and ring while facing mogo (idk if thats how method works)
@@ -259,7 +300,7 @@ void autonomous() {
 // }
 
 void opcontrol(){
-	Robot robot (ports::LEFT_BACK_DT, ports::LEFT_FRONT_BOTTOM_DT, ports::LEFT_FRONT_TOP_DT, ports::RIGHT_BACK_DT, ports::RIGHT_FRONT_BOTTOM_DT, ports::RIGHT_FRONT_TOP_DT, ports::PNEUMATIC1, ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2);
+	Robot robot (ports::LEFT_BACK_DT, ports::LEFT_FRONT_BOTTOM_DT, ports::LEFT_FRONT_TOP_DT, ports::RIGHT_BACK_DT, ports::RIGHT_FRONT_BOTTOM_DT, ports::RIGHT_FRONT_TOP_DT, ports::PNEUMATIC1, ports::INTAKE_MOTOR_1, ports::INTAKE_MOTOR_2, ports::FLAG1);
 
 	while(true) {
 		robot.update("hi");

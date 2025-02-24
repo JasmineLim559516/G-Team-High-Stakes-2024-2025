@@ -8,10 +8,11 @@
         pros::Controller m_controller {pros::E_CONTROLLER_MASTER}; 
 
         //robot constructor
-        Robot::Robot(int8_t left1, int8_t left2, int8_t left3, int8_t right1, int8_t right2, int8_t right3, uint8_t port, int8_t intake1, int8_t intake2) :
+        Robot::Robot(int8_t left1, int8_t left2, int8_t left3, int8_t right1, int8_t right2, int8_t right3, uint8_t a_pneu, int8_t intake1, int8_t intake2, uint8_t a_flag) :
             dt {left1,  left2,  left3,  right1,  right2,  right3},
-            pneu {port},
-            intake {intake1, intake2}
+            pneu {a_pneu},
+            intake {intake1, intake2},
+            flag {a_flag}
         {};
 
 
@@ -129,6 +130,12 @@ lemlib::ExpoDriveCurve throttle_curve(3, // joystick deadband out of 127
             }
         }
 
+        void Robot::update_flag() {
+            if (m_controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)) //change button for flag mech
+            {
+                flag.toggle_flag();
+            }
+        }
     
         //update function for whole robot
         void Robot::update(std::string info){
